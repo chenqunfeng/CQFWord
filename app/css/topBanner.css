@@ -1,0 +1,80 @@
+.topBanner {
+  width: 100%;
+  height: 39px;
+  padding: 6px 19px;
+  margin-top: 30px;
+}
+.topBanner .logo {
+  width: 72px;
+  height: 25px;
+  background-image: url("../img/logo.png");
+  background-size: 100% 100%;
+}
+.topBanner .searchContain {
+  height: 25px;
+  margin-left: 50px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  -webkit-app-region: no-drag;
+}
+.topBanner .searchContain:hover {
+  color: #fff;
+  border: 2px solid #fff;
+  background-color: #000;
+}
+.topBanner .searchContain:hover .searchIcon {
+  background-image: url('../img/fangda_anti.png');
+}
+.topBanner .searchContain:hover .search {
+  color: #fff;
+}
+.topBanner .searchContain .searchIcon {
+  width: 25px;
+  height: 25px;
+  margin-left: 3px;
+  background-image: url('../img/fangda.png');
+  background-size: 100% 100%;
+}
+.topBanner .searchContain .search {
+  width: 89px;
+  height: 25px;
+  padding-left: 2px;
+  padding-right: 8px;
+  border-radius: 12px;
+}
+.topBanner .confirm {
+  padding: 5px 12px;
+  margin-left: 16px;
+  border: 2px solid #000;
+  border-radius: 6px;
+}
+.topBanner .confirm:hover {
+  color: #fff;
+  background-color: #000;
+}
+.minimize {
+  position: absolute;
+  cursor: pointer;
+  height: 14px;
+  text-indent: -10000px;
+  top: 8px;
+  width: 14px;
+  z-index: 1;
+  -webkit-app-region: no-drag;
+  background: transparent url('../img/minimize.png') no-repeat 0px 0px;
+  background-size: 14px 14px;
+  right: 30px;
+}
+.close {
+  position: absolute;
+  cursor: pointer;
+  height: 14px;
+  text-indent: -10000px;
+  top: 8px;
+  width: 14px;
+  z-index: 1;
+  -webkit-app-region: no-drag;
+  background: transparent url('../img/close.png') no-repeat 0px 0px;
+  background-size: 14px 14px;
+  right: 8px;
+}
