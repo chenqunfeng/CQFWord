@@ -84,21 +84,23 @@ Events = (function() {
   };
 
   Events.prototype.each = function(fn) {
-    var i, index, item, key, len, len1, params, result;
+    var i, index, item, key, len, len1, params, ref, ref1, result;
     len = this.length;
     params = arguments.length > 1 ? Array.prototype.slice.call(arguments) : [];
     params.length > 1 && params.shift();
     if (len) {
-      for (index = i = 0, len1 = this.length; i < len1; index = ++i) {
-        item = this[index];
+      ref = this;
+      for (index = i = 0, len1 = ref.length; i < len1; index = ++i) {
+        item = ref[index];
         result = fn.apply(this, [item, index].concat(params));
         if (result === false) {
           return false;
         }
       }
     } else {
-      for (key in this) {
-        item = this[key];
+      ref1 = this;
+      for (key in ref1) {
+        item = ref1[key];
         if (this.hasOwnProperty(key)) {
           result = fn.apply(this, [item, key].concat(params));
           if (result === false) {

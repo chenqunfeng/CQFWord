@@ -16,7 +16,7 @@ UnfamiliarBook = (function(superClass) {
     now = new Date();
     if (this.words) {
       missionTime = this.currentBook.time;
-      if (!missionTime || now.valueOf() > (new Date(missionTime)).valueOf()) {
+      if (!missionTime || this.compareDate(now, new Date(missionTime))) {
         index = this.words.hasLearningWordCount;
         targetIndex = this.words.learningNewWordCount;
         wordObj = this.words.objSet;
@@ -46,6 +46,34 @@ UnfamiliarBook = (function(superClass) {
     book.setAttribute('class', 'unfamiliarBook borderBox');
     book.innerHTML = "<div class=\"bookName fl\">陌生单词本</div>\n<div class=\"todayWords fl\" title=\"单词数量\">\n    <div class=\"twCount\">" + this.currentBook.allCount + "</div>\n    <div class=\"twName\">单词数量</div>\n</div>\n<div class=\"newWords fl\" title=\"新词数\">\n    <div class=\"nCount\">" + (this.currentBook.allCount - this.currentBook.hasLearningWordCount) + "</div>\n    <div class=\"nName\">新词数</div>\n</div>\n<div class=\"finishWords fl\" title=\"已完成\">\n    <div class=\"fCount\">" + this.currentBook.hasLearningWordCount + "</div>\n    <div class=\"fName\">已完成</div>\n</div>\n<div class=\"divider fl\"></div>\n<div class=\"beginLearning fl pointer\" title=\"开始学习\">开始</div>";
     return book;
+  };
+
+  UnfamiliarBook.prototype.compareDate = function(past, current) {
+    var cD, cM, cY, pD, pM, pY;
+    if (past instanceof Date && current instanceof Date) {
+      pY = past.getYear();
+      pM = past.getMonth();
+      pD = past.getDate();
+      cY = current.getYear();
+      cM = current.getMonth();
+      cD = current.getDate();
+      if (pY < cY) {
+        return true;
+      } else {
+        if (pM < cM) {
+          return true;
+        } else {
+          if (pD < cD) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    } else {
+      console.log('param error');
+      return false;
+    }
   };
 
   return UnfamiliarBook;

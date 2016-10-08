@@ -11,7 +11,7 @@ class UnfamiliarBook extends wordBook
         now = new Date()
         if @words
             missionTime = @currentBook.time
-            if !missionTime or now.valueOf() > (new Date(missionTime)).valueOf()
+            if !missionTime or @compareDate(now, (new Date(missionTime)))
                 index = @words.hasLearningWordCount
                 targetIndex = @words.learningNewWordCount
                 wordObj = @words.objSet
@@ -54,5 +54,28 @@ class UnfamiliarBook extends wordBook
             <div class="beginLearning fl pointer" title="开始学习">开始</div>
         """
         return book
+
+    # 判断日期是否为新的一天
+    compareDate: (past, current) ->
+        if past instanceof Date and current instanceof Date
+            pY = past.getYear()
+            pM = past.getMonth()
+            pD = past.getDate()
+            cY = current.getYear()
+            cM = current.getMonth()
+            cD = current.getDate()
+            if pY < cY
+                return true
+            else
+                if pM < cM
+                    return true
+                else
+                    if pD < cD
+                        return true
+                    else
+                        return false
+        else
+            console.log 'param error'
+            return false
 
 module.exports = UnfamiliarBook
