@@ -18,8 +18,8 @@
   
 #### 3、打包
  
-  1.gulp move # 会多出一个dist的文件夹
+  1.`gulp move` # 会多出一个dist的文件夹
   
-  2.cnpm run packager # 多出一个打包完成的文件夹
+  2.`cnpm run packager` # 多出一个打包完成的文件夹
   
   
