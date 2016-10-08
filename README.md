@@ -19,7 +19,9 @@
   确保环境依赖执行正确以后，直接在项目文件下输入 gulp
   
 ### 3、打包
+ 
+  1.gulp move # 会多出一个dist的文件夹
   
-  gulp move # 会多出一个dist的文件夹
+  2.cnpm run packager # 多出一个打包完成的文件夹
   
-  cnpm run packager # 多出一个打包完成的文件夹
+  
