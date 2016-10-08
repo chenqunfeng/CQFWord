@@ -11,7 +11,7 @@ class UnfamiliarBook extends wordBook
         now = new Date()
         if @words
             missionTime = @currentBook.time
-            if !missionTime or now.getDate() > (new Date(missionTime)).getDate()
+            if !missionTime or now.valueOf() > (new Date(missionTime)).valueOf()
                 index = @words.hasLearningWordCount
                 targetIndex = @words.learningNewWordCount
                 wordObj = @words.objSet
