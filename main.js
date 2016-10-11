@@ -18,7 +18,7 @@ ipcMain.on('close-main-window', () => {
 /*----------------------------------------------------------------------------*/
 /*主窗口*/
 var mainWindow = null;
-var debug = true,
+var debug = false,
     devToolsWidth = 0;
 function mainWindowFun() {
     debug && (devToolsWidth = 1000)
