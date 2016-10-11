@@ -16,7 +16,7 @@ UnfamiliarBook = (function(superClass) {
     now = new Date();
     if (this.words) {
       missionTime = this.currentBook.time;
-      if (!missionTime || this.compareDate(now, new Date(missionTime))) {
+      if (!missionTime || this.compareDate(new Date(missionTime), now)) {
         index = this.words.hasLearningWordCount;
         targetIndex = this.words.learningNewWordCount;
         wordObj = this.words.objSet;

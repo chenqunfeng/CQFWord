@@ -1,10 +1,12 @@
-var Common, Component, TopBanner,
+var Common, Component, TopBanner, config,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 Component = require('./Component');
 
 Common = require('./Common');
+
+config = require('./config');
 
 TopBanner = (function(superClass) {
   extend(TopBanner, superClass);
@@ -59,67 +61,23 @@ TopBanner = (function(superClass) {
     })(this));
   };
 
-  TopBanner.prototype.chAnalysis = function(data) {
-    var def, p1, p2;
-    if ((def = data.definition)) {
-      p1 = /(<p[^>]*>|<span[^>]+>|<\/span>|<a[^>]*>|<\/a>|[\n]|[0-9\u4e00-\u9fa5])/g;
-      p2 = /<\/p>/g;
-      data.definition = def.replace(p1, "").replace(p2, "\n");
-    } else {
-      data.definition = "暂无更多释义";
-    }
-    data.audio = "";
-    return data;
-  };
-
-  TopBanner.prototype.enAnalysis = function(data) {
-    var def, error, p1, p2;
-    if ((def = data.definition)) {
-      p1 = /([\n]|<ul>|<\/ul>|<li>)/g;
-      p2 = /<\/li>/g;
-      data.definition = def.replace(p1, "").replace(p2, "\n");
-    } else {
-      data.definition = "暂无更多释义";
-    }
-    if ((error = data.error)) {
-      p1 = /(<span[^>]*>|<\/span>|[\n])/g;
-      p2 = /<a[^>]*>/g;
-      data.error = error.replace(p1, "").replace(p2, "<a class='reSearch pointer' name='reSearch'>");
-    }
-    data.audio = "http://dict.youdao.com/dictvoice?audio=" + data.content;
-    return data;
-  };
-
   TopBanner.prototype.analysis = function(html, v) {
-    var c, data, fun, key, p, table;
-    if (Common.isCh(v)) {
-      fun = "chAnalysis";
-    } else if (Common.isEn(v)) {
+    var data, fun;
+    data = JSON.parse(html);
+    if (Common.isEn(v)) {
       fun = "enAnalysis";
+      data.audio = "http://dict.youdao.com/dictvoice?audio=" + data.query;
+    } else if (Common.isCh(v)) {
+      fun = "chAnalysis";
     }
-    if (fun) {
-      data = {};
-      table = {
-        content: /<span.*class="keyword">(.+?)<\/span>/,
-        pron: /<span.*class="phonetic">(.+?)<\/span>/,
-        definition: /<div class="trans-container">([\s\S]+?)<\/div>/,
-        error: /<p class="typo-rel">([\s\S]+?)<\/p>/
-      };
-      for (key in table) {
-        p = table[key];
-        c = html.match(p);
-        c && (data[key] = c[1]);
-        c || (data[key] = "");
-      }
-      data['sort'] = fun;
-      return this[fun](data);
-    }
+    data["sort"] = fun;
+    return data;
   };
 
   TopBanner.prototype.getExplain = function(v, postfix) {
     var url;
     Common.loading();
-    url = "http://youdao.com/w/" + v;
+    url = config.url + "?type=" + config.type + "&doctype=" + config.doctype + "&version=" + config.version + "&relatedUrl=" + config.relatedUrl + "&keyfrom=" + config.keyfrom + "&key=" + config.key + "&translate=" + config.translate + "&q=" + v;
     return fetch(url).then((function(_this) {
       return function(response) {
         return response.text().then(function(html) {

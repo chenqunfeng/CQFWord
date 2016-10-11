@@ -33,7 +33,7 @@ SearchResult = (function(superClass) {
 
   SearchResult.prototype.template = function() {
     var html;
-    html = "<div class=\"wordContain borderBox\">\n    <div class=\"wordContainTop borderBox\">\n        <div class=\"wordInfo fl\">\n            <div class=\"word fl\" title=\"单词\"></div>\n            <div class=\"pron fl\" title=\"拼注\"></div>\n        </div>\n        <div class=\"wordPlay fl\">\n            <span class=\"wordPlayIcon pointer\" title=\"播放\"></span>\n            <audio class=\"wordPlayAudio\" src=\"\"></audio>\n        </div>\n    </div>\n    <div class=\"wordExplain borderBox fl\">\n        <p title=\"单词释义\"></p>\n    </div>\n</div>\n<div class=\"wordFailedTip borderBox hide\">您输入的内容有误</div>\n<div class=\"addToBook pointer\" title=\"添加到单词本\" name=\"addToBook\">添加到单词本</div>\n<div class=\"wordError hide\">\n    <div>您可能要找的是：</div>\n    <div class=\"wordPossibility\"></div>\n</div>";
+    html = "<div class=\"wordContain borderBox\">\n    <div class=\"wordContainTop borderBox\">\n        <div class=\"wordInfo fl\">\n            <div class=\"word fl\" title=\"单词\"></div>\n            <div class=\"pron fl\" title=\"拼注\"></div>\n        </div>\n        <div class=\"wordPlay fl\">\n            <span class=\"wordPlayIcon pointer\" title=\"播放\"></span>\n            <audio class=\"wordPlayAudio\" src=\"\"></audio>\n        </div>\n    </div>\n    <div class=\"wordExplain borderBox fl\">\n        <div class=\"wordBasicExplain borderBox\">\n            <div>基本释义</div>\n            <p title=\"基本释义\"></p>\n        </div>\n        <div class=\"wordTranslationExplain borderBox\">\n            <div>基本翻译</div>\n            <p title=\"基本翻译\"></p>\n        </div>\n        <div class=\"wordWebExplain borderBox\">\n            <div>网络释义</div>\n            <p title=\"网络释义\"></p>\n        </div>\n    </div>\n</div>\n<div class=\"wordFailedTip borderBox hide\">您输入的内容有误</div>\n<div class=\"addToBook pointer\" title=\"添加到单词本\" name=\"addToBook\">添加到单词本</div>\n<div class=\"wordError hide\">\n    <div>您可能要找的是：</div>\n    <div class=\"wordPossibility\"></div>\n</div>";
     return html;
   };
 
@@ -42,7 +42,9 @@ SearchResult = (function(superClass) {
     this.word = this.contain.querySelector('.word');
     this.pron = this.contain.querySelector('.pron');
     this.wordPlay = this.contain.querySelector('.wordPlay');
-    this.wordExplain = this.contain.querySelector('.wordExplain p');
+    this.wordBasicExplain = this.contain.querySelector('.wordBasicExplain p');
+    this.wordTranslationExplain = this.contain.querySelector('.wordTranslationExplain p');
+    this.wordWebExplain = this.contain.querySelector('.wordWebExplain p');
     this.audio = this.contain.querySelector('.wordPlayAudio');
     this.wordError = this.contain.querySelector('.wordError');
     this.wordPossibility = this.contain.querySelector('.wordPossibility');
@@ -53,13 +55,16 @@ SearchResult = (function(superClass) {
   };
 
   SearchResult.prototype.renderExplain = function() {
-    if (this.data.content && !this.data.error) {
-      this.word.textContent = this.data.content;
-      this.pron.textContent = this.data.pron && '/' + this.data.pron + '/';
-      this.data.audio || this.addClass(this.wordPlay, 'hide');
-      this.data.audio && this.removeClass(this.wordPlay, 'hide');
-      this.audio.src = this.data.audio;
-      this.wordExplain.innerHTML = this.data.definition.replace(/\n/g, "<br>");
+    if (this.data.query) {
+      this.word.textContent = this.data.query;
+      this.pron.textContent = this.data.pron && '/' + this.data.basic["us-phonetic"] + '/';
+      if (this.data.audio) {
+        this.removeClass(this.wordPlay, 'hide');
+        this.audio.src = this.data.audio;
+      } else {
+        this.addClass(this.wordPlay, 'hide');
+      }
+      this.renderBasicExplain().renderTranslationExplain().renderWebExplain();
       return this.data.sort !== 'enAnalysis' && this.addClass(this.addToBook, 'hide');
     } else {
       if (this.data.error) {
@@ -71,6 +76,59 @@ SearchResult = (function(superClass) {
       }
       return this.addClass(this.wordContain, 'hide');
     }
+  };
+
+  SearchResult.prototype.renderBasicExplain = function() {
+    var html;
+    html = "";
+    if (this.data && this.data.basic) {
+      this.data.basic.explains.map((function(_this) {
+        return function(unit) {
+          return html += unit + "<br>";
+        };
+      })(this));
+      this.wordBasicExplain.innerHTML = html;
+    } else {
+      this.wordBasicExplain.innerHTML = "暂无";
+    }
+    return this;
+  };
+
+  SearchResult.prototype.renderTranslationExplain = function() {
+    var html;
+    html = "";
+    if (this.data && this.data.translation) {
+      this.data.translation.map((function(_this) {
+        return function(unit) {
+          return html += unit + "<br>";
+        };
+      })(this));
+      this.wordTranslationExplain.innerHTML = html;
+    } else {
+      this.wordTranslationExplain.innerHTML = "暂无";
+    }
+    return this;
+  };
+
+  SearchResult.prototype.renderWebExplain = function() {
+    var html;
+    html = "";
+    if (this.data && this.data.web) {
+      this.data.web.map((function(_this) {
+        return function(unit, i) {
+          var values;
+          values = "";
+          unit.value.map(function(value) {
+            return values += "<li>" + value + "</li>";
+          });
+          return html += "<div>" + (i + 1) + "、" + unit.key + "</div>\n<ul>" + values + "</ul>";
+        };
+      })(this));
+      this.wordWebExplain.innerHTML = html;
+    } else {
+      this.wordWebExplain.innerHTML = "暂无";
+    }
+    return this;
   };
 
   SearchResult.prototype.eventBind = function() {

@@ -142,20 +142,34 @@ LearningPage = (function(superClass) {
   };
 
   LearningPage.prototype.renderExplain = function() {
-    if (this.data.content) {
+    if (this.data.query) {
       this.removeClass(this.contain, 'hide');
       this.removeClass(this.realize, 'hide');
       this.removeClass(this.unrealize, 'hide');
       this.addClass(this.wordExplain, 'hide');
       this.addClass(this.next, 'hide');
       this.restWordCount.textContent = this.index + '/' + this.currentBook.allCount;
-      this.word.textContent = this.data.content;
-      this.pron.textContent = '/' + this.data.pron + '/';
-      this.data.audio || this.addClass(this.wordPlay, 'hide');
-      this.data.audio && this.removeClass(this.wordPlay, 'hide');
-      this.audio.src = this.data.audio;
-      return this.wordExplain.innerHTML = this.data.definition.replace(/\n/, "<br>");
+      this.word.textContent = this.data.query;
+      this.pron.textContent = '/' + this.data.basic["us-phonetic"] + '/';
+      if (this.data.audio) {
+        this.removeClass(this.wordPlay, 'hide');
+        this.audio.src = this.data.audio;
+      } else {
+        this.addClass(this.wordPlay, 'hide');
+      }
+      return this.renderBasicExplain();
     }
+  };
+
+  LearningPage.prototype.renderBasicExplain = function() {
+    var html;
+    html = "";
+    this.data.basic.explains.map((function(_this) {
+      return function(unit) {
+        return html += unit + "<br>";
+      };
+    })(this));
+    return this.wordExplain.innerHTML = html;
   };
 
   LearningPage.prototype.showMoreExplain = function() {

@@ -39,7 +39,31 @@
         }
         .wordExplain{
             width: 100%;
+            height: 270px;
+            padding: 6px;
             margin-top: 20px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                -webkit-appearance: none;
+                width: 12px;
+            }
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                //box-shadow: inset 0 0 6px #d1cfcf;
+            }
+            &::-webkit-scrollbar-thumb {
+                border: 2px solid rgba(0,0,0,0);
+                background-clip: content-box;
+                background-color: #000;
+                &:hover {
+                    background-color: #a9a9a9;
+                }
+            }
+            &::-webkit-scrollbar-corner {
+                background-color: transparent;
+            } 
             // color: #848484;
             > p{
                 height: 240px;
@@ -50,6 +74,25 @@
                 overflow-y: auto;
                 overflow-x: hidden;
                 line-height: 1.3;
+            }
+            p {
+                padding-left: 20px;
+            }
+            .wordBasicExplain,
+            .wordTranslationExplain,
+            .wordWebExplain{
+                div{
+                    margin: 5px 0px;
+                }
+                ul{
+                    margin-left: 27px;
+                }
+            }
+            .wordTranslationExplain{
+                margin-top: 10px;
+            }
+            .wordWebExplain{
+                margin-top: 10px;
             }
         }
     }

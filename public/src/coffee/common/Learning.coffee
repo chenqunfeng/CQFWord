@@ -136,21 +136,45 @@ class LearningPage extends Component.Components
         else if 'familiarBook' is @key
             console.log 'familiarBook'
 
+    # # 数据渲染
+    # renderExplain: () ->
+    #     if @data.content
+    #         @removeClass @contain, 'hide'
+    #         @removeClass @realize, 'hide'
+    #         @removeClass @unrealize, 'hide'
+    #         @addClass @wordExplain, 'hide'
+    #         @addClass @next, 'hide'
+    #         @restWordCount.textContent = @index + '/' + @currentBook.allCount
+    #         @word.textContent = @data.content
+    #         @pron.textContent = '/' + @data.pron + '/'
+    #         @data.audio or @addClass @wordPlay, 'hide'
+    #         @data.audio and @removeClass @wordPlay, 'hide'
+    #         @audio.src = @data.audio
+    #         @wordExplain.innerHTML = @data.definition.replace(/\n/, "<br>")
+
     # 数据渲染
     renderExplain: () ->
-        if @data.content
+        if @data.query
             @removeClass @contain, 'hide'
             @removeClass @realize, 'hide'
             @removeClass @unrealize, 'hide'
             @addClass @wordExplain, 'hide'
             @addClass @next, 'hide'
             @restWordCount.textContent = @index + '/' + @currentBook.allCount
-            @word.textContent = @data.content
-            @pron.textContent = '/' + @data.pron + '/'
-            @data.audio or @addClass @wordPlay, 'hide'
-            @data.audio and @removeClass @wordPlay, 'hide'
-            @audio.src = @data.audio
-            @wordExplain.innerHTML = @data.definition.replace(/\n/, "<br>")
+            @word.textContent = @data.query
+            @pron.textContent = '/' + @data.basic["us-phonetic"] + '/'
+            if @data.audio
+                @removeClass @wordPlay, 'hide'
+                @audio.src = @data.audio
+            else
+                @addClass @wordPlay, 'hide'
+            @renderBasicExplain()
+
+    renderBasicExplain: ->
+        html = ""
+        @data.basic.explains.map (unit) =>
+            html += unit + "<br>"
+        @wordExplain.innerHTML = html
 
     # 更多解释
     showMoreExplain: () ->

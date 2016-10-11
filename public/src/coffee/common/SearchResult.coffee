@@ -40,7 +40,18 @@ class SearchResult extends Component.Components
                     </div>
                 </div>
                 <div class="wordExplain borderBox fl">
-                    <p title="单词释义"></p>
+                    <div class="wordBasicExplain borderBox">
+                        <div>基本释义</div>
+                        <p title="基本释义"></p>
+                    </div>
+                    <div class="wordTranslationExplain borderBox">
+                        <div>基本翻译</div>
+                        <p title="基本翻译"></p>
+                    </div>
+                    <div class="wordWebExplain borderBox">
+                        <div>网络释义</div>
+                        <p title="网络释义"></p>
+                    </div>
                 </div>
             </div>
             <div class="wordFailedTip borderBox hide">您输入的内容有误</div>
@@ -58,7 +69,9 @@ class SearchResult extends Component.Components
         @word = @contain.querySelector '.word'
         @pron = @contain.querySelector '.pron'
         @wordPlay = @contain.querySelector '.wordPlay'
-        @wordExplain = @contain.querySelector '.wordExplain p'
+        @wordBasicExplain = @contain.querySelector '.wordBasicExplain p'
+        @wordTranslationExplain = @contain.querySelector '.wordTranslationExplain p'
+        @wordWebExplain = @contain.querySelector '.wordWebExplain p'
         @audio = @contain.querySelector '.wordPlayAudio'
         @wordError = @contain.querySelector '.wordError'
         @wordPossibility = @contain.querySelector '.wordPossibility'
@@ -68,15 +81,39 @@ class SearchResult extends Component.Components
         return @
 
     # 数据渲染
+    # renderExplain: () ->
+    #     # 搜索结果正确
+    #     if @data.content and !@data.error
+    #         @word.textContent = @data.content
+    #         @pron.textContent = @data.pron and '/' + @data.pron + '/'
+    #         @data.audio or @addClass @wordPlay, 'hide'
+    #         @data.audio and @removeClass @wordPlay, 'hide'
+    #         @audio.src = @data.audio
+    #         @wordExplain.innerHTML = @data.definition.replace(/\n/g, "<br>")
+    #         @data.sort isnt 'enAnalysis' and @addClass @addToBook, 'hide'
+    #     else
+    #         if @data.error
+    #             @removeClass @wordError, 'hide'
+    #             @wordPossibility.innerHTML = @data.error
+    #         else
+    #             @removeClass @addToBook, 'hide'
+    #             @removeClass @wordFailedTip, 'hide'
+    #         @addClass @wordContain, 'hide'
+
+    # 数据渲染
     renderExplain: () ->
         # 搜索结果正确
-        if @data.content and !@data.error
-            @word.textContent = @data.content
-            @pron.textContent = @data.pron and '/' + @data.pron + '/'
-            @data.audio or @addClass @wordPlay, 'hide'
-            @data.audio and @removeClass @wordPlay, 'hide'
-            @audio.src = @data.audio
-            @wordExplain.innerHTML = @data.definition.replace(/\n/g, "<br>")
+        if @data.query
+            @word.textContent = @data.query
+            @pron.textContent = @data.pron and '/' + @data.basic["us-phonetic"] + '/'
+            if @data.audio
+                @removeClass @wordPlay, 'hide'
+                @audio.src = @data.audio
+            else
+                @addClass @wordPlay, 'hide'
+            @renderBasicExplain()
+                .renderTranslationExplain()
+                .renderWebExplain()
             @data.sort isnt 'enAnalysis' and @addClass @addToBook, 'hide'
         else
             if @data.error
@@ -86,6 +123,45 @@ class SearchResult extends Component.Components
                 @removeClass @addToBook, 'hide'
                 @removeClass @wordFailedTip, 'hide'
             @addClass @wordContain, 'hide'
+
+    # 基本释义
+    renderBasicExplain: ->
+        html = ""
+        if @data and @data.basic
+            @data.basic.explains.map (unit) =>
+                html += unit + "<br>"
+            @wordBasicExplain.innerHTML = html
+        else
+            @wordBasicExplain.innerHTML = "暂无"
+        return @
+
+    # 基本翻译
+    renderTranslationExplain: ->
+        html = ""
+        if @data and @data.translation
+            @data.translation.map (unit) =>
+                html += unit + "<br>"
+            @wordTranslationExplain.innerHTML = html
+        else
+            @wordTranslationExplain.innerHTML = "暂无"
+        return @
+
+    # 网络释义
+    renderWebExplain: ->
+        html = ""
+        if @data and @data.web
+            @data.web.map (unit, i) =>
+                values = ""
+                unit.value.map (value) =>
+                    values += "<li>#{value}</li>"
+                html += """
+                    <div>#{i + 1}、#{unit.key}</div>
+                    <ul>#{values}</ul>
+                """
+            @wordWebExplain.innerHTML = html
+        else
+            @wordWebExplain.innerHTML = "暂无"
+        return @
 
     # 事件绑定
     eventBind: () ->
