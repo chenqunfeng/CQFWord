@@ -57,7 +57,9 @@ SearchResult = (function(superClass) {
   SearchResult.prototype.renderExplain = function() {
     if (this.data.query) {
       this.word.textContent = this.data.query;
-      this.pron.textContent = this.data.basic["us-phonetic"] && '/' + this.data.basic["us-phonetic"] + '/';
+      if (this.data.basic) {
+        this.pron.textContent = this.data.basic["us-phonetic"] && '/' + this.data.basic["us-phonetic"] + '/';
+      }
       if (this.data.audio) {
         this.removeClass(this.wordPlay, 'hide');
         this.audio.src = this.data.audio;

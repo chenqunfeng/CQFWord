@@ -105,7 +105,8 @@ class SearchResult extends Component.Components
         # 搜索结果正确
         if @data.query
             @word.textContent = @data.query
-            @pron.textContent = @data.basic["us-phonetic"] and '/' + @data.basic["us-phonetic"] + '/'
+            if @data.basic
+                @pron.textContent = @data.basic["us-phonetic"] and '/' + @data.basic["us-phonetic"] + '/'
             if @data.audio
                 @removeClass @wordPlay, 'hide'
                 @audio.src = @data.audio

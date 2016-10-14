@@ -159,11 +159,31 @@ input {
   margin-top: 20px;
 }
 .currentPage .wordContain .wordContainTop {
+  max-height: 64px;
   border: 2px solid #000;
   border-radius: 4px;
+  overflow-y: scroll;
+}
+.currentPage .wordContain .wordContainTop::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 12px;
+}
+.currentPage .wordContain .wordContainTop::-webkit-scrollbar-track {
+  background: transparent;
+}
+.currentPage .wordContain .wordContainTop::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: content-box;
+  background-color: #000;
+}
+.currentPage .wordContain .wordContainTop::-webkit-scrollbar-thumb:hover {
+  background-color: #a9a9a9;
+}
+.currentPage .wordContain .wordContainTop::-webkit-scrollbar-corner {
+  background-color: transparent;
 }
 .currentPage .wordContain .wordContainTop .wordInfo {
-  width: 258px;
+  width: 247px;
   padding: 6px 6px;
 }
 .currentPage .wordContain .wordContainTop .wordInfo .word {
@@ -192,7 +212,7 @@ input {
 }
 .currentPage .wordContain .wordExplain {
   width: 100%;
-  height: 270px;
+  height: 255px;
   padding: 6px;
   margin-top: 20px;
   border: 2px solid #000;
