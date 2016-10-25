@@ -62,7 +62,7 @@ class LearningPage extends Component.Components
                 </div>
             </div>
             <div class="wordExplain borderBox fl">
-                <p class="hide" title="单词释义"></p>
+                <p class="scroll hide" title="单词释义"></p>
             </div>
             <div class="realize pointer" name="realize" title="认识该单词">认识</div>
             <div class="unrealize pointer" name="unrealize" title="不认识该单词">不认识</div>

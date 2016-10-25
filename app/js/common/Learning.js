@@ -57,7 +57,7 @@ LearningPage = (function(superClass) {
 
   LearningPage.prototype.template = function() {
     var html;
-    html = "<div class=\"restWordCount\"></div>\n<div class=\"wordContainTop borderBox\">\n    <div class=\"wordInfo fl\">\n        <div class=\"word fl\" title=\"单词\"></div>\n        <div class=\"pron fl\" title=\"拼注\"></div>\n    </div>\n    <div class=\"wordPlay fl\">\n        <span class=\"wordPlayIcon pointer\" name=\"wordPlay\" title=\"播放\"></span>\n        <audio class=\"wordPlayAudio\" src=\"\"></audio>\n    </div>\n</div>\n<div class=\"wordExplain borderBox fl\">\n    <p class=\"hide\" title=\"单词释义\"></p>\n</div>\n<div class=\"realize pointer\" name=\"realize\" title=\"认识该单词\">认识</div>\n<div class=\"unrealize pointer\" name=\"unrealize\" title=\"不认识该单词\">不认识</div>\n<div class=\"next pointer hide\" name=\"next\" title=\"下一个\">下一个</div>";
+    html = "<div class=\"restWordCount\"></div>\n<div class=\"wordContainTop borderBox\">\n    <div class=\"wordInfo fl\">\n        <div class=\"word fl\" title=\"单词\"></div>\n        <div class=\"pron fl\" title=\"拼注\"></div>\n    </div>\n    <div class=\"wordPlay fl\">\n        <span class=\"wordPlayIcon pointer\" name=\"wordPlay\" title=\"播放\"></span>\n        <audio class=\"wordPlayAudio\" src=\"\"></audio>\n    </div>\n</div>\n<div class=\"wordExplain borderBox fl\">\n    <p class=\"scroll hide\" title=\"单词释义\"></p>\n</div>\n<div class=\"realize pointer\" name=\"realize\" title=\"认识该单词\">认识</div>\n<div class=\"unrealize pointer\" name=\"unrealize\" title=\"不认识该单词\">不认识</div>\n<div class=\"next pointer hide\" name=\"next\" title=\"下一个\">下一个</div>";
     return html;
   };
 

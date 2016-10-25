@@ -61,24 +61,7 @@
   border: 2px solid #000;
   border-radius: 4px;
   overflow-y: scroll;
-}
-.currentPage .wordContain .wordExplain::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 12px;
-}
-.currentPage .wordContain .wordExplain::-webkit-scrollbar-track {
-  background: transparent;
-}
-.currentPage .wordContain .wordExplain::-webkit-scrollbar-thumb {
-  border: 2px solid rgba(0, 0, 0, 0);
-  background-clip: content-box;
-  background-color: #000;
-}
-.currentPage .wordContain .wordExplain::-webkit-scrollbar-thumb:hover {
-  background-color: #a9a9a9;
-}
-.currentPage .wordContain .wordExplain::-webkit-scrollbar-corner {
-  background-color: transparent;
+  line-height: 1.2;
 }
 .currentPage .wordContain .wordExplain > p {
   height: 240px;
@@ -92,9 +75,9 @@
 .currentPage .wordContain .wordExplain p {
   padding-left: 20px;
 }
-.currentPage .wordContain .wordExplain .wordBasicExplain div,
-.currentPage .wordContain .wordExplain .wordTranslationExplain div,
-.currentPage .wordContain .wordExplain .wordWebExplain div {
+.currentPage .wordContain .wordExplain .wordBasicExplain > div,
+.currentPage .wordContain .wordExplain .wordTranslationExplain > div,
+.currentPage .wordContain .wordExplain .wordWebExplain > div {
   margin: 5px 0px;
 }
 .currentPage .wordContain .wordExplain .wordBasicExplain ul,

@@ -39,7 +39,7 @@ class SearchResult extends Component.Components
                         <audio class="wordPlayAudio" src=""></audio>
                     </div>
                 </div>
-                <div class="wordExplain borderBox fl">
+                <div class="wordExplain scroll borderBox fl">
                     <div class="wordBasicExplain borderBox">
                         <div>基本释义</div>
                         <p title="基本释义"></p>
