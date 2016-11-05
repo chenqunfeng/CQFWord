@@ -1,12 +1,17 @@
 const electron = require('electron')
-const client = require('electron-connect').client;
+// const client = require('electron-connect').client;
+// Let electron reloads by itself when webpack watches changes in ./app/
+require('electron-reload')(__dirname, {
+    // 强制重启，相当于开辟一个新的eletron进程
+    electron: require('electron-prebuilt')
+})
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
 
 app.on('ready', () => {
-    unfamiliarBookFun()
-    familiarBookFun()
+    // unfamiliarBookFun()
+    // familiarBookFun()
     mainWindowFun()
 });
 /*----------------------------------------------------------------------------*/
@@ -34,10 +39,10 @@ function mainWindowFun() {
     debug && (mainWindow.webContents.openDevTools())
 
     //加载index.html
-    mainWindow.loadURL('file://' + __dirname + '/app/html/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/app/build/index.html');
 
 
-    debug && client.create(mainWindow)
+    // debug && client.create(mainWindow)
 }
 
 /*----------------------------------------------------------------------------*/
@@ -85,33 +90,33 @@ ipcMain.on('close-settings-window', () => {
 
 /*----------------------------------------------------------------------------*/
 /*配置文件*/
-var wordBook = require('./main/fileController')
-function unfamiliarBookFun() {
-    bookFun('unfamiliarBook.json')
-}
-function familiarBookFun() {
-    bookFun('familiarBook.json')
-}
-function bookFun(fileName) {
-    wordBook.openFile(fileName)
-    if (!wordBook.readSettings('words')) {
-        wordBook.saveSettings('words', {
-            allCount: 0,
-            learningWordCount: 40,
-            hasLearningWordCount: 0,
-            learningNewWordCount: 40,
-            objSet: {},
-            arrSet: []
-        })
-    }
-    if (!wordBook.readSettings('learningMission')) {
-        wordBook.saveSettings('learningMission', {
-            arrSet: [],
-            arrSetScore: [],
-            learningWordCount: 0,
-            learningNewWordCount: 0,
-            hasLearningWordCount: 0,
-            time: {}
-        })
-    }
-}
+// var wordBook = require('./main/fileController')
+// function unfamiliarBookFun() {
+//     bookFun('unfamiliarBook.json')
+// }
+// function familiarBookFun() {
+//     bookFun('familiarBook.json')
+// }
+// function bookFun(fileName) {
+//     wordBook.openFile(fileName)
+//     if (!wordBook.readSettings('words')) {
+//         wordBook.saveSettings('words', {
+//             allCount: 0,
+//             learningWordCount: 40,
+//             hasLearningWordCount: 0,
+//             learningNewWordCount: 40,
+//             objSet: {},
+//             arrSet: []
+//         })
+//     }
+//     if (!wordBook.readSettings('learningMission')) {
+//         wordBook.saveSettings('learningMission', {
+//             arrSet: [],
+//             arrSetScore: [],
+//             learningWordCount: 0,
+//             learningNewWordCount: 0,
+//             hasLearningWordCount: 0,
+//             time: {}
+//         })
+//     }
+// }

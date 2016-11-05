@@ -1,0 +1,5 @@
+
+body {
+  -webkit-app-region: no-drag;
+  -webkit-app-select: select;
+}
