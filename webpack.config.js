@@ -1,10 +1,11 @@
 var webpack = require('webpack')
 var htmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-module.exports = {
-
+// var url = require('file!img!./file.png')
+var config = {
+    // 监测文件变化
     watch: true,
-
+    // 使用什么方式进行环境编译，这里使用electron环境编译
     target: 'electron',
     // 入口
     entry: [
@@ -14,7 +15,8 @@ module.exports = {
     output: {
         path: __dirname + '/app/build',
         filename: 'js/bundle.js',
-        publicPath: ''
+        // 公共资源访问地址
+        publicPath: './'
     },
     // 服务器配置
     devServer: {
@@ -39,6 +41,9 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue'
             },
+            /*
+             解析jade文件
+             */
             {
                 test: /\.jade$/,
                 loader: 'jade'
@@ -51,24 +56,33 @@ module.exports = {
                 loader: 'babel',
                 exclude: /node_modules/
             },
+            {
+                test: /\.(png|jpe?g)$/i,
+                // limit字段待变图片打包限制，小于8192自动转成base64码引用，
+                // 大于8192以正常形式打包
+                loader: 'url-loader?limit=8192&name=assets/[name].[ext]',
+            }
         ]
     },
+    // vue相关配置
     vue: {
         loaders: {
             css: ExtractTextPlugin.extract('css'),
             less: ExtractTextPlugin.extract('css!less')
         }
     },
+    // babel相关配置
     babel: {
         presets: ['es2015'],
         plugins: ['transform-runtime']
     },
+    // 模块解析的选项
     resolve: {
         // require时省略的扩展名
-        extensions: ['', '.js', '.vue']
-    },
-    devtool: 'eval-source-map',
-    resolve: {
+        extensions: ['', '.js', '.vue'],
+        /*
+         alias为请求重定向，将用户的请求重定向到另一个路径
+        */
         /*
          使用独立构建方式
          * 构建有两种方式，独立构建和运行构建
@@ -81,9 +95,12 @@ module.exports = {
          则是运行构建的方式
          */
         alias: {
-            'vue$': 'vue/dist/vue.js'
+            'vue$': 'vue/dist/vue.js',
+            'jquery$': 'jquery/dist/jquery.js'
         }
     },
+    // 选择开发人员工具
+    devtool: 'eval-source-map',
     plugins: [
         /*
          热替换插件
@@ -102,3 +119,5 @@ module.exports = {
         new ExtractTextPlugin('css/index.css')
     ]
 }
+
+module.exports = config

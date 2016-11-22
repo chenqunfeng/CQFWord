@@ -23,16 +23,17 @@ ipcMain.on('close-main-window', () => {
 /*----------------------------------------------------------------------------*/
 /*主窗口*/
 var mainWindow = null;
-var debug = true,
+var debug = false,
     devToolsWidth = 0;
 function mainWindowFun() {
     debug && (devToolsWidth = 1000)
 
     mainWindow = new BrowserWindow({
         frame: false,
-        height: 500,
-        width: 370 + devToolsWidth,
-        resizable: false
+        height: 580,
+        width: 674 + devToolsWidth,
+        resizable: false,
+        // transparent: false
     })
 
     // Open the DevTools.
@@ -41,53 +42,55 @@ function mainWindowFun() {
     //加载index.html
     mainWindow.loadURL('file://' + __dirname + '/app/build/index.html');
 
-
     // debug && client.create(mainWindow)
 }
 
 /*----------------------------------------------------------------------------*/
 /*切换窗口*/
-ipcMain.on('change-index-window', () => {
-    if (!mainWindow) {
-        return;
-    }
-    mainWindow.loadURL('file://' + __dirname + '/app/html/index.html');
-})
-ipcMain.on('change-learning-window', () => {
-    if (!mainWindow) {
-        return;
-    }
-    mainWindow.loadURL('file://' + __dirname + '/app/html/learning.html');
-});
+// ipcMain.on('change-index-window', () => {
+//     if (!mainWindow) {
+//         return;
+//     }
+//     mainWindow.loadURL('file://' + __dirname + '/app/html/index.html');
+// })
+// ipcMain.on('change-learning-window', () => {
+//     if (!mainWindow) {
+//         return;
+//     }
+//     mainWindow.loadURL('file://' + __dirname + '/app/html/learning.html');
+// });
 
 /*----------------------------------------------------------------------------*/
 /*设置窗口*/
-var settingsWindow = null
+// var settingsWindow = null
 
-ipcMain.on('open-settings-window', () => {
-    if (settingsWindow) {
-        return;
+// ipcMain.on('open-settings-window', () => {
+//     if (settingsWindow) {
+//         return;
+//     }
+
+//     settingsWindow = new BrowserWindow({
+//         frame: false,
+//         height: 200,
+//         resizable: false,
+//         width: 200
+//     })
+
+//     settingsWindow.loadURL('file://' + __dirname + '/app/settings.html')
+
+//     // settingsWindow.on('closed', function () {
+//     //     settingsWindow = null;
+//     // })
+// })
+/*
+ 窗口事件控制
+ 全屏/还原/缩小/关闭
+ */
+ipcMain.on('window-event', (event, way) => {
+    if (mainWindow && mainWindow[way]) {
+        mainWindow[way]()
     }
-
-    settingsWindow = new BrowserWindow({
-        frame: false,
-        height: 200,
-        resizable: false,
-        width: 200
-    })
-
-    settingsWindow.loadURL('file://' + __dirname + '/app/settings.html')
-
-    settingsWindow.on('closed', function () {
-        settingsWindow = null;
-    })
 })
-ipcMain.on('close-settings-window', () => {
-    if (settingsWindow) {
-        settingsWindow.close();
-    }
-})
-
 /*----------------------------------------------------------------------------*/
 /*配置文件*/
 // var wordBook = require('./main/fileController')
