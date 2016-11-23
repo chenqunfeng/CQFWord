@@ -1,8 +1,8 @@
 /*
  模块引用
  */
-var webpack = require('webpack'),
-    htmlWebpackPlugin = require('html-webpack-plugin'),
+var WebpackCleanPlugin = require('webpack-clean'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 /*
@@ -117,13 +117,19 @@ var config = {
     devtool: 'eval-source-map',
     plugins: [
         /*
+         清除文件
+         */
+        // new WebpackCleanPlugin([
+        //     'build/*'
+        // ], parseSlash(__dirname + '/app/')),
+        /*
          热替换插件
          */
         // new webpack.HotModuleReplacementPlugin(),
         /*
          用来简化创建服务与webpack的html文件
          */
-        new htmlWebpackPlugin({
+        new HtmlWebpackPlugin({
             template: './app/index.jade'
         }),
         /*
@@ -131,7 +137,9 @@ var config = {
          并输出一个.css文件
          ps：但是该功能会让HMR对css样式的局部更新失效
          */
-        new ExtractTextPlugin('css/index.css')
+        new ExtractTextPlugin('css/index.css'),
+
+
     ]
 }
 
