@@ -1,7 +1,17 @@
-var webpack = require('webpack')
-var htmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-// var url = require('file!img!./file.png')
+/*
+ 模块引用
+ */
+var webpack = require('webpack'),
+    htmlWebpackPlugin = require('html-webpack-plugin'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+/*
+ 反斜杠转为斜杠
+ */
+function parseSlash(dir) {
+    return dir && dir.replace(/\\/g, '/')
+}
+
 var config = {
     // 监测文件变化
     watch: true,
@@ -13,10 +23,14 @@ var config = {
     ],
     // 输出
     output: {
-        path: __dirname + '/app/build',
+        path: parseSlash(__dirname + '/app/build/'),
         filename: 'js/bundle.js',
-        // 公共资源访问地址
-        publicPath: './'
+        /*
+         公共资源访问地址
+         * 统一将反斜杠转为斜杠，避免反斜杠引起的路径问题
+         * 将项目路径下的app/build/设置为公共资源访问地址
+         */
+        publicPath: parseSlash(__dirname + '/app/build/')
     },
     // 服务器配置
     devServer: {
@@ -60,7 +74,7 @@ var config = {
                 test: /\.(png|jpe?g)$/i,
                 // limit字段待变图片打包限制，小于8192自动转成base64码引用，
                 // 大于8192以正常形式打包
-                loader: 'url-loader?limit=8192&name=assets/[name].[ext]',
+                loader: 'url-loader?limit=81&name=image/[hash:8].[name].[ext]',
             }
         ]
     },
@@ -115,6 +129,7 @@ var config = {
         /*
          合并页面上通过模块引用进入的style标签块的css属性
          并输出一个.css文件
+         ps：但是该功能会让HMR对css样式的局部更新失效
          */
         new ExtractTextPlugin('css/index.css')
     ]
