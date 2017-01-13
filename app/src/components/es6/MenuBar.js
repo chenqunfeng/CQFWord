@@ -1,35 +1,25 @@
 import electron from 'electron'
 import $ from 'jquery'
 const ipcRenderer = electron.ipcRenderer
-export default {
+module.exports = {
     data () {
         return {
             'unmax': true
         }
     },
     methods: {
-        dict(event) {
-            var bdict = $('.menu-button-dict'),
-                bwordBook = $('.menu-button-word-book')
+        // dict(event) {
+        //     var t = $(event.target),
+        //         active = $('.menu-button').find('.active')
 
-            if (bdict.hasClass('active')) 
-                return
+        //     if (t.get(0) === active.get(0)) 
+        //         return
 
-            bdict.addClass('active')
-            bwordBook.removeClass('active')
-            ipcRenderer.send('window-dict')
-        },
-        wordBook(event) {
-            var bdict = $('.menu-button-dict'),
-                bwordBook = $('.menu-button-word-book')
-
-            if (bwordBook.hasClass('active'))
-                return
-
-            bdict.removeClass('active')
-            bwordBook.addClass('active')
-            ipcRenderer.send('window-word-book')
-        },
+        //     active.removeClass('active')
+        //     t.addClass('active')
+        //     console.log('dict')
+        //     this.$emit('switchPage', 'dict')
+        // }
         minimize() {
             ipcRenderer.send('window-event', 'minimize')
         },

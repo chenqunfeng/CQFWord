@@ -110,6 +110,7 @@ var config = {
          */
         alias: {
             'vue$': 'vue/dist/vue.js',
+            'vue-router': 'vue-router/dist/vue-router.js',
             'jquery$': 'jquery/dist/jquery.js'
         }
     },
