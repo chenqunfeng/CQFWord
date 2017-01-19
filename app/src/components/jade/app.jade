@@ -1,4 +1,10 @@
 div.app
     menu-bar
-    search-box
-    router-view
+    div.main-content
+        //- search-box
+        //- div
+        //-     {{loading}}
+        router-view
+        div.searchLoading(v-show="loading")
+            div.searchWord.searchWordAnimation
+        

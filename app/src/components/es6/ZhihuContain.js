@@ -1,23 +1,39 @@
 import config from './../../../../config.js'
 import fetchAPI from './common/fetchAPI.js'
-
+import login from './../ZhihuLogin.vue'
+import index from './../ZhihuIndex.vue'
+import store from './../../store/index.js'
 module.exports = {
     data () {
-        return {
-            status: 'logout',
-            offset: 10,
-            start: 0
-        }
+        return {}
+    },
+    components: {
+        logined: index,
+        logout: login
     },
     created() {
-        var that = this
-        var f = new fetchAPI('http://104.223.6.204:3000/zhihu')
+        let that = this,
+            id = localStorage.getItem('id'),
+            url = config.server + '/zhihu',
+            f
+            ;
+        store.commit('startLoading')
+        if (id)
+            url += '?id=' + id
+        f = new fetchAPI(url)
         f.fetchJSON().then(function(data) {
             if ('logout' === data.status) {
-                console.log('还未登录')
+                store.commit('setZhihu', data)
+                store.commit('zhihuLogout')
             } else {
-                console.log('已经登录')
+                store.commit('zhihuLogined')
             }
+            store.commit('finishLoading')
         })
+    },
+    computed: {
+        currentView () {
+            return store.state.zhihu.status
+        }
     }
 }

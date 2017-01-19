@@ -1,0 +1,233 @@
+.zhihu-index{
+    -webkit-app-region: no-drag;
+    -webkit-app-select: select;
+    padding: 15px 10px;
+    .zg-section{
+        font-size: 14px;
+        color: #666;
+        font-weight: 700;
+        margin: 0 0 10px;
+        display: block;
+        .zg-icon{
+            width: 16px;
+            height: 16px;
+            vertical-align: -4px;
+            margin-right: 5px;
+            background-position: -71px -88px;
+            background-image: url(https://static.zhihu.com/static/revved/img/sprites-1.9.2.4c54885a.png);
+            background-repeat: no-repeat;
+            display: inline-block;
+        }
+        .logout{
+            button{
+                background: #0e78e7;
+                border: none;
+                width: 75px;
+                height: 22px;
+                cursor: pointer;
+                color: #fff;
+                border-radius: 6px;
+            }
+        }
+    }
+    .feed-item{
+        list-style: none;
+        border-top: 1px solid #eee;
+    }
+    .load-more-item{
+        button{
+            width: 100%;
+            padding: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    }
+}
+.feed-item{
+    position: relative;
+    padding: 10px 0;
+    margin-left: 0;
+    line-height: 1.7;
+    outline: 0;
+    .avatar{
+        float: left;
+        margin: 3px 0 0;
+        &,
+        a,
+        img{
+            display: block;
+            width: 38px;
+            height: 38px;
+        }
+    }
+    .feed-main{
+        margin-left: 48px;
+    }
+    .feed-source{
+        &,
+        a{
+            color: #999;
+            font-size: 13px;
+        }
+    }
+    .feed-contain{
+        h2{
+            margin-right: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            outline: 0;
+            color: #259;
+        }
+        .entry-body{
+            position: relative;
+            margin-top: 3px;
+            .item-vote{
+                position: absolute;
+                left: -48px;
+                margin-top: -1px;
+                .item-vote-count{
+                    display: block;
+                    color: #698ebf;
+                    height: 24px;
+                    line-height: 24px;
+                    width: 38px;
+                    border-radius: 3px;
+                    border: 0;
+                    cursor: pointer;
+                    background: #eff6fa;
+                    font-weight: 700;
+                    font-weight: 500;
+                    text-align: center;
+                    text-decoration: none;
+                    overflow: hidden;
+                    -webkit-text-size-adjust: none;
+                }
+            }
+            .author-info{
+                margin-bottom: 2px;
+                margin: 0 0 1px;
+                font-size: 13px;
+                .author{
+                    color: #222;
+                }
+                .bio{
+                    color: #999;
+                    margin: 3px 0;
+                }
+            }
+            .item-rich-text{
+                .summary{
+                    -webkit-tap-highlight-color: rgba(225,225,225,.5);
+                    position: relative;
+                    cursor: pointer;
+                    font-size: 13px;
+                    img{
+                        float: left;
+                        height: 112px;
+                        width: 200px;
+                        border-radius: 4px;
+                        margin: 1px 10px 5px 0;
+                    }
+                    a{
+                        display: inline-block;
+                        padding: 0 3px;
+                        border-radius: 2px;
+                        font-size: .9em;
+                        color: #259;
+                    }
+                }
+                .content{
+                    -webkit-tap-highlight-color: rgba(225,225,225,.5);
+                    font-size: 13px;
+                    img{
+                        margin: 6px 0;
+                        display: block;
+                        overflow: hidden;
+                        max-width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+            .feed-meta{
+                .meta-item{
+                    font-size: 13px;
+                    color: #999;
+                    &:hover{
+                        text-decoration: underline;
+                        color: #698ebf;
+                        // .meta-icon-comment{
+                        //     background-position: -28px -37px;
+                        // }
+                    }
+                }
+                .meta-icon-item{
+                    display: inline-block;
+                    line-height: 10px;
+                    vertical-align: 0;
+                    background-image: url(https://static.zhihu.com/static/revved/img/sprites-1.9.2.4c54885a.png);
+                    background-repeat: no-repeat;
+                    margin-right: 5px;
+                }
+                .meta-icon-comment{
+                    width: 9px;
+                    height: 10px;
+                    background-position: -28px -22px;
+                }
+                .meta-icon-content{
+                    background-position: -135px -22px;
+                    width: 8px;
+                    height: 9px;
+                }
+                .toogle-comment{
+                    &:hover{
+                        background-position: -28px -37px;
+                    }
+                }
+            }
+        }
+        // .feed-meta{
+        //     .zm-meta-panel{
+        //         padding: 5px 0;
+        //         margin-bottom: -5px;
+        //         background: transparent;
+        //         a,
+        //         .meta-item{
+        //             color: #999;
+        //             vertical-align: middle;
+        //         }
+        //         .zu-autohide{
+        //             display: none;
+        //         }
+        //         .zu-autohide{
+        //             display: none;
+        //         }
+        //         .zg-bull{
+        //             color: #999;
+        //             vertical-align: middle;
+        //             padding: 0 3px;
+        //         }
+        //         .item-collapse{
+        //             color: #999;
+        //             display: inline-block;
+        //             float: right;
+        //             display: none;
+        //             margin: 0;
+        //             padding: 1px 6px 0;
+        //             background: 0 0;
+        //             border: 0;
+        //             border-radius: 3px;
+        //             outline: 0;
+        //             cursor: pointer;
+        //             -webkit-transition: background-color .2s,visibility .2s,opacity .2s,-webkit-transform .2s;
+        //             transition: background-color .2s,visibility .2s,opacity .2s,-webkit-transform .2s;
+        //             transition: background-color .2s,visibility .2s,opacity .2s,transform .2s;
+        //             transition: background-color .2s,visibility .2s,opacity .2s,transform .2s,-webkit-transform .2s;
+        //             -webkit-user-select: none;
+        //             -moz-user-select: none;
+        //             -ms-user-select: none;
+        //             user-select: none;
+        //         }
+        //     }
+        // }
+    }
+}

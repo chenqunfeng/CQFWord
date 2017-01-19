@@ -1,0 +1,52 @@
+div.zhihu-index
+    div.zg-section.clear-float
+        div.fl
+            i.zg-icon
+            最新动态
+        div.logout.fr
+            button(type='button' v-on:click='logout') 登出
+    ul
+        li.feed-item(v-for='(item, index) in list')
+            div.avatar
+                img(:src='item.avatar')
+            div.feed-main
+                div.feed-source
+                    来自话题: {{item.source}}
+                div.feed-contain
+                    h2.feed-title
+                        {{item.title}}
+                    div.entry-body
+                        div.item-vote
+                            div.item-vote-count
+                                {{item.votes}}
+                        div.author-info
+                            span.author
+                                {{item.answer.author}}
+                            span.bio
+                                {{item.answer.bio}}
+                        div.item-rich-text.clear-float
+                            div.summary(
+                                v-if='item.summary'
+                                v-html='item.answer.summary'
+                                v-bind:index='index'
+                                v-on:click='toogleContent'
+                                )
+                            div.content(
+                                v-else
+                                v-html='item.answer.content'
+                                )
+                                
+                        div.feed-meta.clear-float(
+                            v-on:click='toogleContent'
+                            v-bind:index='index'
+                            )
+                            a.fl.meta-item.toogle-comment.pointer
+                                i.meta-icon-comment.meta-icon-item
+                                {{item.votes}}条评论
+                            a.fr.meta-item.toogle-content.pointer(
+                                v-show='!item.summary'
+                                )
+                                    i.meta-icon-content.meta-icon-item
+                                    收起
+    div.load-more-item
+        button(type='button' v-on:click='loadMore') 加载更多

@@ -25,6 +25,18 @@ class FetchAPI {
         this.opts.method = method
     }
 
+    parseDate(data) {
+        let params = new URLSearchParams(), k;
+        for (k in data) {
+            if ('object' === typeof data[k]) {
+                params.set(k, JSON.stringify(data[k]))
+            } else {
+                params.set(k, data[k])
+            }
+        }
+        return params
+    }
+
     text(response) {
         return response.text()
     }
@@ -52,6 +64,9 @@ class FetchAPI {
     }
 
     fetchJSON(url, opts) {
+        if (opts && opts.body) {
+            opts.body = this.parseDate(opts.body)
+        }
         return this.fetch(url, opts).then(this.json)
     }
 
