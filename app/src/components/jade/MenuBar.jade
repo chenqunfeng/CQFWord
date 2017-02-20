@@ -1,9 +1,9 @@
 div.menu-bar.pointer.trans
     div.menu-icon.fl
     div.menu-button.fl
-        router-link(to='/dict').menu-button-dict.pointer.fl.hover-effect 词典
-        router-link(to='/wordBook').menu-button-word-book.pointer.fl.hover-effect 单词本
-        router-link(to='/zhihu').menu-button-zhihu.pointer.fl.hover-effect 知乎
+        router-link(to='/dict' v-on:click.native='switchBtn').menu-button-dict.pointer.fl.hover-effect 词典
+        router-link(to='/wordBook' v-on:click.native='switchBtn').menu-button-word-book.pointer.fl.hover-effect 单词本
+        router-link(to='/zhihu' v-on:click.native='switchBtn').menu-button-zhihu.pointer.fl.hover-effect.active 知乎
     div.menu-operation.fr
         span(v-on:click='minimize').menu-minimize.pointer.fl.hover-effect
         span(v-on:click='maximize' v-if='unmax').menu-maximize.pointer.fl.hover-effect

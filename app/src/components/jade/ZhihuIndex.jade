@@ -6,7 +6,10 @@ div.zhihu-index
         div.logout.fr
             button(type='button' v-on:click='logout') 登出
     ul
-        li.feed-item(v-for='(item, index) in list')
+        li.feed-item(
+            v-for='(item, index) in list'
+            v-bind:index='index'
+            )
             div.avatar
                 img(:src='item.avatar')
             div.feed-main
@@ -26,7 +29,7 @@ div.zhihu-index
                                 {{item.answer.bio}}
                         div.item-rich-text.clear-float
                             div.summary(
-                                v-if='item.summary'
+                                v-if='item.summaryMode'
                                 v-html='item.answer.summary'
                                 v-bind:index='index'
                                 v-on:click='toogleContent'
@@ -34,19 +37,40 @@ div.zhihu-index
                             div.content(
                                 v-else
                                 v-html='item.answer.content'
-                                )
-                                
+                                ) 
                         div.feed-meta.clear-float(
                             v-on:click='toogleContent'
                             v-bind:index='index'
                             )
-                            a.fl.meta-item.toogle-comment.pointer
-                                i.meta-icon-comment.meta-icon-item
-                                {{item.votes}}条评论
-                            a.fr.meta-item.toogle-content.pointer(
-                                v-show='!item.summary'
+                            a.fl.meta-item.toogle-comment.pointer(
+                                v-on:click='toogleComment'
                                 )
-                                    i.meta-icon-content.meta-icon-item
-                                    收起
+                                i.meta-icon-comment.meta-icon-item
+                                {{item.addcomment}}条评论
+                            a.fr.meta-item.toogle-content.pointer(
+                                v-show='!item.summaryMode'
+                                )
+                                i.meta-icon-content.meta-icon-item
+                                收起
+                        div.feed-comment(
+                            v-show='item.commentMode'
+                            )
+                            div.comment-box(
+                                v-for='(c, i) in item.comment'
+                                )
+                                img.comment-avatar(
+                                    :src=" 'https://pic1.zhimg.com/' + c.author.avatar.id"
+                                )
+                                div.comment-body
+                                    div.name
+                                        {{c.author.name}}
+                                    div.content
+                                        {{c.content}}
+                            div.pager
+                                span(
+                                    v-for='n in pages(item.addcomment * 1)'
+                                    )
+                                    {{n}}
+
     div.load-more-item
         button(type='button' v-on:click='loadMore') 加载更多

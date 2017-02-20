@@ -9,7 +9,10 @@ Vue.config.debug = true
 
 Vue.use(VueRouter)
 
-const router = new VueRouter({routes: routerConfig, mode: 'history'})
+const router = new VueRouter({
+    routes: routerConfig,
+    // mode: 'history'
+})
 
 new Vue({
     router,

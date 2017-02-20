@@ -24,10 +24,19 @@ const mutations = {
     appendList (state, list) {
         state.zhihu.list = state.zhihu.list.concat(list)
     },
+    setComment (state, opts) {
+        let index = opts.index,
+            comment = opts.comment
+            ;
+        state.zhihu.list[index].comment = comment
+    },
     setListMode (state, index) {
-        let cur = state.zhihu.list[index].summary
-        console.log(cur)
-        state.zhihu.list[index].summary = !cur
+        let cur = state.zhihu.list[index].summaryMode
+        state.zhihu.list[index].summaryMode = !cur
+    },
+    setCommentMode (state, index) {
+        let cur = state.zhihu.list[index].commentMode
+        state.zhihu.list[index].commentMode = !cur
     }
 }
 module.exports = mutations

@@ -35,7 +35,9 @@ module.exports = {
             }
         }).then(function(data) {
             data.map(function(unit) {
-                unit.summary = true
+                unit.comment = []
+                unit.commentMode = false
+                unit.summaryMode = true
                 unit.answer.summary += '<a class="toogle-content">显示全部</a>'
             })
             store.commit('setList', data)
@@ -44,6 +46,9 @@ module.exports = {
         })
     },
     methods: {
+        pages (count) {
+            return parseInt(count / 30) + 1
+        },
         loadMore() {
             let that = this,
                 id = localStorage.getItem('id'),
@@ -65,7 +70,9 @@ module.exports = {
                 }
             }).then(function(data) {
                 data.map(function(unit) {
-                    unit.summary = true
+                    unit.comment = []
+                    unit.commentMode = false
+                    unit.summaryMode = true
                     unit.answer.summary += '<a class="toogle-content">显示全部</a>'
                 })
                 store.commit('appendList', data)
@@ -89,6 +96,34 @@ module.exports = {
                 //     document.querySelector('.vertical-scrollbar').scrollTop = that.scrollTop + 'px'
                 // }
                 store.commit('setListMode', index)
+            }
+        },
+        toogleComment(event) {
+            let e = event.target;
+            if (e.classList.contains('toogle-comment')) {
+                let index = e.parentNode.getAttribute('index'),
+                    id = localStorage.getItem('id'),
+                    answerId = store.state.zhihu.list[index].answer.answerId,
+                    postId = store.state.zhihu.list[index].answer.postId,
+                    url = config.server + '/zhihu/getComment',
+                    f
+                    ;
+                if (id)
+                    url += '?id=' + id
+                f = new fetchAPI()
+                f.fetchJSON(url, {
+                    method: 'POST',
+                    body: {
+                        answerId: answerId,
+                        postId: postId
+                    }
+                }).then(function(data) {
+                    store.commit('setComment', {
+                        index: index,
+                        comment: data.data
+                    })
+                    store.commit('setCommentMode', index)
+                })
             }
         }
     }

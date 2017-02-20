@@ -8,18 +8,16 @@ module.exports = {
         }
     },
     methods: {
-        // dict(event) {
-        //     var t = $(event.target),
-        //         active = $('.menu-button').find('.active')
+        switchBtn(event) {
+            var t = $(event.target),
+                active = $('.menu-button').find('.active')
 
-        //     if (t.get(0) === active.get(0)) 
-        //         return
+            if (t.get(0) === active.get(0)) 
+                return
 
-        //     active.removeClass('active')
-        //     t.addClass('active')
-        //     console.log('dict')
-        //     this.$emit('switchPage', 'dict')
-        // }
+            active.removeClass('active')
+            t.addClass('active')
+        },
         minimize() {
             ipcRenderer.send('window-event', 'minimize')
         },

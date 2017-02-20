@@ -184,6 +184,40 @@
                     }
                 }
             }
+            .feed-comment{
+                padding-left: 1em;
+                padding-right: 1em;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: 0 1px 1px rgba(0,0,0,.05);
+                font-size: 13px;
+                .comment-box{
+                    position: relative;
+                    list-style: none;
+                    outline: none;
+                    padding: .9em 0;
+                    border-bottom: 1px solid #ddd;
+                    .comment-avatar{
+                        float: left;
+                        margin: 4px 1em 0 0;
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 3px;
+                        background-color: #eee;
+                    }
+                    .comment-body{
+                        overflow: hidden;
+                        .name{
+                            color: #259;
+                        }
+                        .content{
+                            min-height: 22px;
+                            word-wrap: break-word;
+                            color: #222;
+                        }
+                    }
+                }
+            }
         }
         // .feed-meta{
         //     .zm-meta-panel{

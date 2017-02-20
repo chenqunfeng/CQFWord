@@ -139,7 +139,9 @@ var config = {
          并输出一个.css文件
          ps：但是该功能会让HMR对css样式的局部更新失效
          */
-        new ExtractTextPlugin('css/index.css'),
+        new ExtractTextPlugin('css/index.css', {
+            allChunks: true
+        }),
 
 
     ]

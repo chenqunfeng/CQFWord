@@ -10,8 +10,8 @@ const config = new Object()
 //     "referer": "https://www.zhihu.com/",
 //     "referrerPolicy": "no-referrer"
 // }
-config.server = 'http://104.223.6.204:3000'
+// config.server = 'http://104.223.6.204:3000'
 
-// config.server = 'http://localhost:3000'
+config.server = 'http://localhost:3000'
 
 module.exports = config
